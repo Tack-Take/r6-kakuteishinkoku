@@ -21,16 +21,42 @@
 
         <main>
             <section id="preparation" class="step-content active">
-                <h2>確定申告の準備</h2>
+                <h2>確定申告の下準備</h2>
+                
                 <div class="prep-category">
                     <h3>基本的な準備物</h3>
-                    <ul>
-                        <li>マイナンバーカードまたは通知カード</li>
-                        <li>源泉徴収票（原本）</li>
-                        <li>本人確認書類（運転免許証等）</li>
-                        <li>還付金の振込先口座情報</li>
-                        <li>前年の確定申告書の控え（ある場合）</li>
-                    </ul>
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <button class="accordion-header">マイナンバーカードまたは通知カード</button>
+                            <div class="accordion-content">
+                                <p>マイナンバーカードまたは通知カードを準備してください。</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header">源泉徴収票（原本）</button>
+                            <div class="accordion-content">
+                                <p>源泉徴収票（原本）を準備してください。</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header">本人確認書類（運転免許証等）</button>
+                            <div class="accordion-content">
+                                <p>本人確認書類（運転免許証等）を準備してください。</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header">還付金の振込先口座情報</button>
+                            <div class="accordion-content">
+                                <p>還付金の振込先口座情報を準備してください。</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header">前年の確定申告書の控え（ある場合）</button>
+                            <div class="accordion-content">
+                                <p>前年の確定申告書の控え（ある場合）を準備してください。</p>
+                            </div>
+                        </div>
+                    </div>
                     <p><a href="https://www.nta.go.jp/taxes/shiraberu/shinkoku/tokushu/index.htm" target="_blank" class="tax-link">国税庁：確定申告特集</a></p>
                 </div>
 
@@ -875,67 +901,26 @@
             </section>
 
             <section id="documents" class="step-content">
-                <h2>必要書類一覧</h2>
-                <div class="document-list">
-                    <div class="document-category">
-                        <h3>共通して必要な書類</h3>
-                        <ul>
-                            <li>マイナンバーカードまたは通知カードのコピー</li>
-                            <li>本人確認書類（運転免許証等）のコピー</li>
-                            <li>給与所得の源泉徴収票</li>
-                            <li>還付先の口座情報がわかるもの</li>
-                            <li>印鑑（書面提出の場合）</li>
-                        </ul>
-                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/shinkoku/kakutei.htm" target="_blank" class="tax-link">国税庁：確定申告に必要な書類</a></p>
-                    </div>
-
-                    <div class="document-category">
-                        <h3>医療費控除の場合</h3>
+                <h2>必要書類の確認</h2>
+                
+                <div class="document-category" data-deduction="medical">
+                    <h3>医療費控除の場合</h3>
+                    <div class="accordion">
                         <ul>
                             <li>【必須】医療費控除の明細書</li>
-                            <li>【保管義務】医療費の領収書（提出不要、自宅で5年間保管）</li>
-                            <li>【該当する場合】医療保険からの補填額の明細（保険金や高額療養費など）</li>
-                            <li>【セルフメディケーション税制の場合】予防接種や健康診断等の領収書</li>
+                            <li>【必須】マイナンバーカード/通知カード</li>
+                            <li>【条件付き】医療保険からの補填額がわかる書類（保険金や高額療養費等）</li>
+                            <li>【条件付き】セルフメディケーション税制適用の場合は特定の健康診査等を受けたことを証する書類</li>
                         </ul>
+                        <p class="note">※領収書の提出は不要ですが、5年間は保管する必要があります。</p>
                         <p class="note">※平成29年分以降の確定申告では、領収書の提出は不要で、代わりに「医療費控除の明細書」の添付が必要です。</p>
-                        <p class="note">※生計同一の家族の医療費の場合、実務上は家族関係を証明する書類は通常求められませんが、質問された場合に説明できるようにしておくとよいでしょう。</p>
+                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1128.htm" target="_blank" class="tax-link">国税庁：医療費控除に必要な書類</a></p>
                     </div>
+                </div>
 
-                    <div class="document-category">
-                        <h3>生命保険料控除の場合</h3>
-                        <ul>
-                            <li>【必須】生命保険料控除証明書（原本）</li>
-                            <li>【該当する場合】個人年金保険料控除証明書（原本）</li>
-                            <li>【該当する場合】介護医療保険料控除証明書（原本）</li>
-                        </ul>
-                        <p class="note">※年末調整で控除済みの場合は確定申告不要です（他の控除を追加で受ける場合を除く）。</p>
-                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1142.htm" target="_blank" class="tax-link">国税庁：生命保険料控除の手続き</a></p>
-                    </div>
-
-                    <div class="document-category">
-                        <h3>地震保険料控除の場合</h3>
-                        <ul>
-                            <li>【必須】地震保険料控除証明書（原本）</li>
-                            <li>【該当する場合】旧長期損害保険料控除証明書（原本）</li>
-                        </ul>
-                        <p class="note">※年末調整で控除済みの場合は確定申告不要です（他の控除を追加で受ける場合を除く）。</p>
-                        <p class="note">※給与所得者は、年末調整で申告するのが一般的です。</p>
-                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1145.htm" target="_blank" class="tax-link">国税庁：地震保険料控除について</a></p>
-                    </div>
-
-                    <div class="document-category">
-                        <h3>小規模企業共済等掛金控除の場合</h3>
-                        <ul>
-                            <li>【必須】小規模企業共済等掛金控除証明書（原本）</li>
-                            <li>【該当する場合】国民年金基金の控除証明書（原本）</li>
-                            <li>【該当する場合】iDeCo（個人型確定拠出年金）の控除証明書（原本）</li>
-                        </ul>
-                        <p class="note">※年末調整で控除済みの場合は確定申告不要です（他の控除を追加で受ける場合を除く）。</p>
-                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1135.htm" target="_blank" class="tax-link">国税庁：小規模企業共済等掛金控除について</a></p>
-                    </div>
-
-                    <div class="document-category">
-                        <h3>住宅ローン控除の場合</h3>
+                <div class="document-category" data-deduction="housing-loan">
+                    <h3>住宅ローン控除の場合</h3>
+                    <div class="accordion">
                         <ul>
                             <li>【必須】住宅借入金等特別控除額の計算明細書</li>
                             <li>【必須】住宅取得資金に係る借入金の年末残高等証明書（金融機関発行）</li>
@@ -947,29 +932,67 @@
                         <p class="note">※このアプリは年末調整はせずにすべてを確定申告する人向けです。2年目以降も確定申告が必要な場合は、「住宅取得資金に係る借入金の年末残高等証明書」のみが必要です。</p>
                         <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1217.htm" target="_blank" class="tax-link">国税庁：住宅ローン控除に必要な書類</a></p>
                     </div>
+                </div>
 
-                    <div class="document-category">
-                        <h3>ふるさと納税の場合</h3>
+                <div class="document-category" data-deduction="life-insurance">
+                    <h3>生命保険料控除の場合</h3>
+                    <div class="accordion">
                         <ul>
-                            <li>【必須】寄附金受領証明書（原本）</li>
-                            <li>【必須】寄附金税額控除に関する証明書（原本）</li>
-                            <li>【注意】寄附先の自治体によっては、受領証明書と控除証明書が一体になっている場合があります</li>
+                            <li>【必須】生命保険料控除証明書（保険会社発行）</li>
+                            <li>【必須】マイナンバーカード/通知カード</li>
                         </ul>
-                        <p class="note">※ワンストップ特例制度を利用している場合は申告不要です。</p>
-                        <p class="note">※確定申告が必要な他の控除がある場合は、ワンストップ特例の適用はなくなり、ふるさと納税も申告する必要があります。</p>
-                        <p><a href="https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/furusato/topics/20200630_00.html" target="_blank" class="tax-link">総務省：ふるさと納税の申告手続き</a></p>
+                        <p class="note">※保険の種類（一般生命保険、介護医療保険、個人年金保険）ごとに控除額が計算されます。</p>
+                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1140.htm" target="_blank" class="tax-link">国税庁：生命保険料控除について</a></p>
                     </div>
+                </div>
 
-                    <div class="document-category">
-                        <h3>社会保険料控除の場合</h3>
+                <div class="document-category" data-deduction="social-insurance">
+                    <h3>社会保険料控除の場合</h3>
+                    <div class="accordion">
                         <ul>
-                            <li>【該当者のみ】社会保険料（国民年金保険料）控除証明書（日本年金機構から送付）</li>
-                            <li>【該当者のみ】国民健康保険料の領収書または納付証明書</li>
-                            <li>【該当者のみ】その他の社会保険料の控除証明書または領収書</li>
+                            <li>【必須】社会保険料（国民年金保険料）控除証明書</li>
+                            <li>【必須】マイナンバーカード/通知カード</li>
+                            <li>【条件付き】国民健康保険料の支払証明書（自治体発行）</li>
                         </ul>
-                        <p class="note">※給与から天引きされている社会保険料は、源泉徴収票で確認できるため、別途証明書は不要です。</p>
-                        <p class="note">※家族の社会保険料を支払った場合、生計同一の証明は通常不要ですが、質問された場合に説明できるようにしておくとよいでしょう。</p>
+                        <p class="note">※給与から天引きされている社会保険料は、源泉徴収票に記載されているため証明書は不要です。</p>
                         <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1130.htm" target="_blank" class="tax-link">国税庁：社会保険料控除について</a></p>
+                    </div>
+                </div>
+
+                <div class="document-category" data-deduction="earthquake-insurance">
+                    <h3>地震保険料控除の場合</h3>
+                    <div class="accordion">
+                        <ul>
+                            <li>【必須】地震保険料控除証明書（保険会社発行）</li>
+                            <li>【必須】マイナンバーカード/通知カード</li>
+                        </ul>
+                        <p class="note">※旧長期損害保険契約に基づく保険料については、経過措置が適用される場合があります。</p>
+                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1125.htm" target="_blank" class="tax-link">国税庁：地震保険料控除について</a></p>
+                    </div>
+                </div>
+
+                <div class="document-category" data-deduction="small-business">
+                    <h3>小規模企業共済等掛金控除の場合</h3>
+                    <div class="accordion">
+                        <ul>
+                            <li>【必須】小規模企業共済等掛金払込証明書</li>
+                            <li>【必須】マイナンバーカード/通知カード</li>
+                        </ul>
+                        <p class="note">※iDeCo（個人型確定拠出年金）の掛金も対象になります。</p>
+                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1135.htm" target="_blank" class="tax-link">国税庁：小規模企業共済等掛金控除について</a></p>
+                    </div>
+                </div>
+
+                <div class="document-category" data-deduction="donation">
+                    <h3>ふるさと納税（寄附金控除）の場合</h3>
+                    <div class="accordion">
+                        <ul>
+                            <li>【必須】寄附金受領証明書（自治体発行）</li>
+                            <li>【必須】マイナンバーカード/通知カード</li>
+                            <li>【条件付き】ワンストップ特例申請書の控え（確定申告不要の場合）</li>
+                        </ul>
+                        <p class="note">※ワンストップ特例制度を利用した場合でも、医療費控除等で確定申告をする場合は、ふるさと納税も申告する必要があります。</p>
+                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1150.htm" target="_blank" class="tax-link">国税庁：ふるさと納税について</a></p>
                     </div>
                 </div>
             </section>
