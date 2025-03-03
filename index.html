@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>所得税確定申告支援アプリ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>所得税確定申告支援アプリ</h1>
+        </header>
+
+        <nav class="progress-nav">
+            <button class="progress-btn active" data-step="preparation">①下準備</button>
+            <button class="progress-btn" data-step="deduction-select">②控除項目選択</button>
+            <button class="progress-btn" data-step="submission-method">③申告方法選択</button>
+            <button class="progress-btn" data-step="documents">④必要書類</button>
+        </nav>
+
+        <main>
+            <section id="preparation" class="step-content active">
+                <h2>確定申告の準備</h2>
+                <div class="prep-category">
+                    <h3>基本的な準備物</h3>
+                    <ul>
+                        <li>マイナンバーカードまたは通知カード</li>
+                        <li>源泉徴収票（原本）</li>
+                        <li>本人確認書類（運転免許証等）</li>
+                        <li>還付金の振込先口座情報</li>
+                        <li>前年の確定申告書の控え（ある場合）</li>
+                    </ul>
+                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/shinkoku/tokushu/index.htm" target="_blank" class="tax-link">国税庁：確定申告特集</a></p>
+                </div>
+
+                <div class="prep-category">
+                    <h3>電子申告（e-Tax）用の準備</h3>
+                    <ul>
+                        <li>マイナンバーカード（電子証明書搭載のもの）</li>
+                        <li>ICカードリーダーまたはマイナンバーカード対応スマートフォン</li>
+                        <li>e-Tax利用者識別番号とパスワード</li>
+                        <li>マイナポータルアプリ（スマホ利用の場合）</li>
+                    </ul>
+                    <p><a href="https://www.e-tax.nta.go.jp/e-taxsoftweb/e-taxsoftweb.htm" target="_blank" class="tax-link">国税庁：確定申告書等作成コーナー</a></p>
+                </div>
+
+                <div class="prep-category">
+                    <h3>控除別の準備物</h3>
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <button class="accordion-header">医療費控除の準備</button>
+                            <div class="accordion-content">
+                                <ul>
+                                    <li>医療費の領収書（5年間保管用、提出不要）</li>
+                                    <li>医療費控除の明細書（領収書をもとに作成）</li>
+                                    <li>医療保険からの補填額がわかる書類</li>
+                                    <li>マイナポータル連携用のマイナンバーカード（自動入力可能）</li>
+                                </ul>
+                                <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1120.htm" target="_blank" class="tax-link">国税庁：医療費控除について</a></p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">住宅ローン控除の準備</button>
+                            <div class="accordion-content">
+                                <ul>
+                                    <li>住宅借入金等特別控除額の計算明細書</li>
+                                    <li>住宅取得資金に係る借入金の年末残高等証明書（金融機関発行）</li>
+                                    <li>住民票の写し（入居後のもの、世帯全員分、マイナンバーの記載がないもの）</li>
+                                    <li>土地・建物の登記事項証明書（法務局発行）</li>
+                                    <li>家屋の取得年月日、床面積、取得価額が分かる契約書等の写し</li>
+                                    <li>特例の適用を受ける場合の証明書（認定住宅の場合）</li>
+                                </ul>
+                                <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1213.htm" target="_blank" class="tax-link">国税庁：住宅ローン控除について</a></p>
+                                <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1214.htm" target="_blank" class="tax-link">住宅借入金等特別控除の概要</a></p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">生命保険料控除の準備</button>
+                            <div class="accordion-content">
+                                <ul>
+                                    <li>生命保険料控除証明書（保険会社発行）</li>
+                                    <li>個人年金保険料控除証明書（該当する場合）</li>
+                                    <li>介護医療保険料控除証明書（該当する場合）</li>
+                                </ul>
+                                <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1140.htm" target="_blank" class="tax-link">国税庁：生命保険料控除について</a></p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">社会保険料控除の準備</button>
+                            <div class="accordion-content">
+                                <ul>
+                                    <li>社会保険料（国民年金保険料）控除証明書（日本年金機構発行）</li>
+                                    <li>給与から天引きされていない社会保険料の領収書（国民健康保険料など）</li>
+                                    <li>家族の社会保険料を支払った場合は生計同一を証明する書類</li>
+                                </ul>
+                                <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1130.htm" target="_blank" class="tax-link">国税庁：社会保険料控除について</a></p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">地震保険料控除の準備</button>
+                            <div class="accordion-content">
+                                <ul>
+                                    <li>地震保険料控除証明書（保険会社発行）</li>
+                                    <li>旧長期損害保険料控除証明書（該当する場合）</li>
+                                </ul>
+                                <p class="note">※保険会社から毎年10〜11月頃に送付されます。</p>
+                                <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1145.htm" target="_blank" class="tax-link">国税庁：地震保険料控除について</a></p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">小規模企業共済等掛金控除の準備</button>
+                            <div class="accordion-content">
+                                <ul>
+                                    <li>小規模企業共済の掛金控除証明書（中小機構から送付）</li>
+                                    <li>iDeCo（個人型確定拠出年金）の掛金控除証明書</li>
+                                    <li>国民年金基金の掛金控除証明書</li>
+                                </ul>
+                                <p class="note">※各運営機関から毎年10〜11月頃に送付されます。</p>
+                                <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1135.htm" target="_blank" class="tax-link">国税庁：小規模企業共済等掛金控除について</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="deduction-select" class="step-content">
+                <h2>控除項目選択</h2>
+                <div class="deduction-options">
+                    <div class="deduction-category">
+                        <h3>医療費控除</h3>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <button class="accordion-header">概要と対象となる費用</button>
+                                <div class="accordion-content">
+                                    <p>申告者本人やその方と生計を一にする配偶者その他の親族のために支払った医療費がある場合、一定金額を所得金額から差し引くことができます。</p>
+                                    <h4>控除額の計算方法</h4>
+                                    <div class="calculation-box">
+                                        <p>医療費控除額 = 支払った医療費の合計額 - 保険金などで補填される金額 - 10万円</p>
+                                        <p>※ただし、所得金額の5%が10万円より低い場合は、所得金額の5%を引きます</p>
+                                        <p>※控除限度額は200万円</p>
+                                    </div>
+                                    <h4>控除対象となる医療費</h4>
+                                    <ul>
+                                        <li>病院・診療所での診療費</li>
+                                        <li>治療のための医薬品購入費</li>
+                                        <li>医師等による治療のためのあん摩マッサージ指圧師等の施術費</li>
+                                        <li>介護保険サービスの利用者負担額</li>
+                                        <li>通院費（電車・バス・タクシー等）</li>
+                                        <li>入院時の食事代</li>
+                                        <li>医師が必要と認めた治療用装具の購入費</li>
+                                    </ul>
+                                    <h4>対象とならない医療費</h4>
+                                    <ul>
+                                        <li>健康診断の費用</li>
+                                        <li>予防接種の費用</li>
+                                        <li>医薬部外品の購入費</li>
+                                        <li>美容整形の費用</li>
+                                        <li>健康増進や疲労回復のための費用（健康食品、サプリメント等）</li>
+                                    </ul>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1120.htm" target="_blank" class="tax-link">国税庁：医療費控除について</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">マイナポータル連携の利用方法</button>
+                                <div class="accordion-content">
+                                    <p>マイナポータル連携を利用すると、医療費通知情報を自動で取得して申告書に反映できます。</p>
+                                    <h4>連携で取得できる情報</h4>
+                                    <ul>
+                                        <li>健康保険組合等からの医療費通知情報</li>
+                                        <li>薬剤情報（調剤報酬明細書）</li>
+                                    </ul>
+                                    <h4>家族の医療費情報も取得可能</h4>
+                                    <p>事前にマイナポータルで代理人の設定を行うことで、家族の医療費情報も取得できます。</p>
+                                    <p class="note">※代理人設定の際には、申告者とご家族それぞれのマイナンバーカードが必要です。</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">医療費集計表の作成方法</button>
+                                <div class="accordion-content">
+                                    <p>医療費の領収書が多い場合は、医療費集計フォームを利用すると便利です。</p>
+                                    <h4>集計表作成の選択肢</h4>
+                                    <ul>
+                                        <li>国税庁提供の「医療費集計フォーム」（Excel形式）</li>
+                                        <li>確定申告書等作成コーナーでの直接入力</li>
+                                        <li>手書きの医療費控除の明細書</li>
+                                    </ul>
+                                    <h4>提出方法</h4>
+                                    <p>e-Taxの場合：医療費集計フォームを確定申告書等作成コーナーに読み込ませることができます。</p>
+                                    <p>郵送・窓口提出の場合：「医療費控除の明細書」を添付し、領収書は自宅で5年間保管してください。</p>
+                                    <p class="warning">※平成29年分以降の確定申告では、領収書の代わりに「医療費控除の明細書」の添付が必要です。</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">被扶養者の医療費について</button>
+                                <div class="accordion-content">
+                                    <p>以下の方の医療費も合算して申告できます：</p>
+                                    <ul>
+                                        <li>配偶者</li>
+                                        <li>生計を一にする親族</li>
+                                        <li>年間所得が48万円以下の扶養親族</li>
+                                    </ul>
+                                    <h4>必要書類（法令上の規定と実務上の取扱い）</h4>
+                                    <p>法令上は家族関係や生計同一を証明する書類が求められますが、実務上は以下の対応が一般的です：</p>
+                                    <ul>
+                                        <li>【法令上】被扶養者との関係を証明する書類（戸籍謄本等）<br>
+                                        <span class="note">→ 実務上は通常提出不要。申告者が家族の医療費を支払ったことを自己申告で済むケースがほとんど</span></li>
+                                        <li>【実務上必要】被扶養者の医療費の領収書または明細書</li>
+                                        <li>【法令上】生計同一を証明する書類（住民票等）<br>
+                                        <span class="note">→ 実務上は通常提出不要。質問があった場合に説明できるよう用意しておくと安心</span></li>
+                                    </ul>
+                                    <p class="note">※実際の税務署での対応は地域や担当者により異なる場合があります。特に特殊なケース（別居の親族の医療費を支払ったなど）では、証明書類を求められることもあります。</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">セルフメディケーション税制との選択</button>
+                                <div class="accordion-content">
+                                    <p>セルフメディケーション税制（医療費控除の特例）は、通常の医療費控除と選択制です。</p>
+                                    <h4>セルフメディケーション税制の概要</h4>
+                                    <ul>
+                                        <li>健康診断、予防接種、がん検診などを受けている方が対象</li>
+                                        <li>スイッチOTC医薬品の購入費が控除対象</li>
+                                        <li>控除額 = 対象医薬品の購入費 - 12,000円（上限88,000円）</li>
+                                    </ul>
+                                    <p class="note">※通常の医療費控除とセルフメディケーション税制は選択適用で、同時に適用することはできません。</p>
+                                    <p class="warning">※一度選択した控除方式は、修正申告や更正の請求でも変更できませんのでご注意ください。</p>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1127.htm" target="_blank" class="tax-link">国税庁：セルフメディケーション税制について</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="deduction-category">
+                        <h3>住宅ローン控除</h3>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <button class="accordion-header">控除の概要と適用条件</button>
+                                <div class="accordion-content">
+                                    <p>住宅ローン等を利用して住宅を取得した場合、一定の要件を満たせば所得税の控除が受けられます。</p>
+                                    <h4>控除を受けるための主な要件</h4>
+                                    <ul>
+                                        <li>自己居住用の住宅であること</li>
+                                        <li>床面積が50㎡以上であること（令和5年以降は40㎡以上も可能な場合あり）</li>
+                                        <li>借入金の返済期間が10年以上であること</li>
+                                        <li>合計所得金額が2,000万円以下であること（令和7年以後の入居は1,000万円以下）</li>
+                                    </ul>
+                                    <h4>控除額の計算方法</h4>
+                                    <div class="calculation-box">
+                                        <p>控除額 = 年末ローン残高 × 控除率（借入年や住宅の種類により異なる）</p>
+                                        <p>※控除率は住宅の種類や取得時期により0.7%〜1.0%</p>
+                                        <p>※控除限度額は年間で最大40万円（一般住宅の場合）</p>
+                                    </div>
+                                    <p class="note">※控除期間は、入居した年によって10年間〜13年間になります。</p>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1213.htm" target="_blank" class="tax-link">国税庁：住宅ローン控除について</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">対象となる住宅取得の区分と時期による違い</button>
+                                <div class="accordion-content">
+                                    <h4>控除の対象となる住宅取得</h4>
+                                    <ul>
+                                        <li>新築住宅の取得</li>
+                                        <li>中古住宅の取得</li>
+                                        <li>増改築等（リフォーム）</li>
+                                    </ul>
+                                    <h4>入居時期による控除期間と控除率の違い</h4>
+                                    <table class="deduction-table">
+                                        <tr>
+                                            <th>入居年</th>
+                                            <th>控除期間</th>
+                                            <th>控除率（一般住宅）</th>
+                                        </tr>
+                                        <tr>
+                                            <td>平成26年〜令和元年9月</td>
+                                            <td>10年間</td>
+                                            <td>1.0%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>令和元年10月〜令和2年12月</td>
+                                            <td>10年間</td>
+                                            <td>1.0%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>令和3年〜令和4年</td>
+                                            <td>13年間</td>
+                                            <td>0.7%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>令和5年〜令和7年</td>
+                                            <td>10年間</td>
+                                            <td>0.7%</td>
+                                        </tr>
+                                    </table>
+                                    <p class="note">※消費税率10%で購入した住宅や認定住宅等は、控除率や控除期間が優遇される場合があります。</p>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1211.htm" target="_blank" class="tax-link">国税庁：住宅ローン控除の適用条件</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">必要書類と手続きの流れ</button>
+                                <div class="accordion-content">
+                                    <h4>初年度の確定申告に必要な書類</h4>
+                                    <ul>
+                                        <li>【必須】確定申告書および住宅借入金等特別控除額の計算明細書</li>
+                                        <li>【必須】住民票の写し（入居後のもの、世帯全員分、マイナンバーの記載がないもの）</li>
+                                        <li>【必須】住宅取得資金に係る借入金の年末残高等証明書（金融機関発行）</li>
+                                        <li>【必須】土地・建物の登記事項証明書（法務局発行）</li>
+                                        <li>【必須】家屋の取得年月日、床面積、取得価額が分かる書類（契約書等の写し）</li>
+                                        <li>【条件付き】特例の適用を受ける場合の証明書（認定住宅等の場合のみ）</li>
+                                    </ul>
+                                    <p class="note">※e-Taxで提出する場合は、上記の添付書類はイメージデータで送信可能です。</p>
+                                    <h4>2年目以降の手続き</h4>
+                                    <p>給与所得者の場合：</p>
+                                    <ul>
+                                        <li>2年目以降は「年末調整」で控除が受けられます</li>
+                                        <li>毎年10〜11月頃に「給与所得者の住宅借入金等特別控除申告書」を勤務先に提出</li>
+                                        <li>金融機関から送付される「住宅取得資金に係る借入金の年末残高等証明書」を添付</li>
+                                    </ul>
+                                    <p>事業所得者等の場合：</p>
+                                    <ul>
+                                        <li>2年目以降も確定申告が必要です</li>
+                                        <li>「住宅借入金等特別控除額の計算明細書」を作成</li>
+                                        <li>「住宅取得資金に係る借入金の年末残高等証明書」を添付</li>
+                                    </ul>
+                                    <p class="note">※このアプリは年末調整はせずにすべてを確定申告する人向けです。2年目以降も確定申告が必要な場合は、「住宅取得資金に係る借入金の年末残高等証明書」のみが必要です。</p>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1218.htm" target="_blank" class="tax-link">国税庁：住宅ローン控除の手続き</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">注意点とよくある質問</button>
+                                <div class="accordion-content">
+                                    <h4>控除を受ける際の注意点</h4>
+                                    <ul>
+                                        <li>入居した年の翌年（初年度）の確定申告期限までに申告をしなければなりません</li>
+                                        <li>住宅ローンを借り換えた場合も、一定の要件を満たせば控除を継続して受けられます</li>
+                                        <li>転勤等で一時的に住宅を離れる場合でも、一定の要件を満たせば控除を受けられることがあります</li>
+                                    </ul>
+                                    <h4>よくある質問</h4>
+                                    <ul>
+                                        <li>Q：住宅ローン控除は所得税から控除しきれない場合どうなりますか？<br>
+                                            A：所得税から控除しきれない場合、一定の金額を住民税から控除できます。</li>
+                                        <li>Q：住宅の建設が遅れて入居が翌年になった場合はどうなりますか？<br>
+                                            A：契約時の要件が適用されるケースがありますので、専門家にご相談ください。</li>
+                                        <li>Q：途中で繰り上げ返済をした場合、控除はどうなりますか？<br>
+                                            A：残高が減少するため控除額も減りますが、条件を満たす限り控除は継続されます。</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="deduction-category">
+                        <h3>生命保険料控除</h3>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <button class="accordion-header">控除の概要と種類</button>
+                                <div class="accordion-content">
+                                    <p>生命保険料控除は、納税者本人が支払った保険料について、所得から一定額を控除できる制度です。</p>
+                                    <h4>控除の種類</h4>
+                                    <ul>
+                                        <li>一般生命保険料控除（生命保険、終身保険、定期保険など）</li>
+                                        <li>介護医療保険料控除（介護保険、医療保険など）</li>
+                                        <li>個人年金保険料控除（個人年金保険など）</li>
+                                    </ul>
+                                    <p class="note">※契約時期により控除額の計算方法が異なります（平成24年1月1日前と後）</p>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1140.htm" target="_blank" class="tax-link">国税庁：生命保険料控除について</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">控除額の計算方法</button>
+                                <div class="accordion-content">
+                                    <h4>新契約（平成24年1月1日以後に締結した保険契約）</h4>
+                                    <table class="deduction-table">
+                                        <tr>
+                                            <th>年間の支払保険料</th>
+                                            <th>控除額</th>
+                                        </tr>
+                                        <tr>
+                                            <td>20,000円以下</td>
+                                            <td>支払保険料の全額</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20,000円超 40,000円以下</td>
+                                            <td>支払保険料 × 1/2 + 10,000円</td>
+                                        </tr>
+                                        <tr>
+                                            <td>40,000円超 80,000円以下</td>
+                                            <td>支払保険料 × 1/4 + 20,000円</td>
+                                        </tr>
+                                        <tr>
+                                            <td>80,000円超</td>
+                                            <td>一律40,000円</td>
+                                        </tr>
+                                    </table>
+                                    <h4>旧契約（平成23年12月31日以前に締結した保険契約）</h4>
+                                    <table class="deduction-table">
+                                        <tr>
+                                            <th>年間の支払保険料</th>
+                                            <th>控除額</th>
+                                        </tr>
+                                        <tr>
+                                            <td>25,000円以下</td>
+                                            <td>支払保険料の全額</td>
+                                        </tr>
+                                        <tr>
+                                            <td>25,000円超 50,000円以下</td>
+                                            <td>支払保険料 × 1/2 + 12,500円</td>
+                                        </tr>
+                                        <tr>
+                                            <td>50,000円超 100,000円以下</td>
+                                            <td>支払保険料 × 1/4 + 25,000円</td>
+                                        </tr>
+                                        <tr>
+                                            <td>100,000円超</td>
+                                            <td>一律50,000円</td>
+                                        </tr>
+                                    </table>
+                                    <h4>控除限度額</h4>
+                                    <div class="calculation-box">
+                                        <p>一般生命保険料控除：最大40,000円（旧契約は50,000円）</p>
+                                        <p>介護医療保険料控除：最大40,000円</p>
+                                        <p>個人年金保険料控除：最大40,000円（旧契約は50,000円）</p>
+                                        <p>合計最大限度額：120,000円</p>
+                                    </div>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1141.htm" target="_blank" class="tax-link">国税庁：生命保険料控除の控除額の計算方法</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">申告手続きと必要書類</button>
+                                <div class="accordion-content">
+                                    <h4>給与所得者の場合</h4>
+                                    <ul>
+                                        <li>年末調整で控除を受けるには、勤務先に「給与所得者の保険料控除申告書」と「保険料控除証明書」を提出</li>
+                                        <li>期限は各企業の年末調整の時期（通常10〜12月頃）</li>
+                                    </ul>
+                                    <h4>確定申告で控除を受ける場合</h4>
+                                    <ul>
+                                        <li>確定申告書に保険料支払額を記入</li>
+                                        <li>保険料控除証明書（原本）を添付</li>
+                                    </ul>
+                                    <p class="note">※保険料控除証明書は通常、保険会社から10月〜11月頃に送付されます。</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">控除対象となる保険の種類と注意点</button>
+                                <div class="accordion-content">
+                                    <h4>控除対象となる主な保険の種類</h4>
+                                    <ul>
+                                        <li>一般生命保険料控除：終身保険、定期保険、養老保険など</li>
+                                        <li>介護医療保険料控除：医療保険、がん保険、介護保険など</li>
+                                        <li>個人年金保険料控除：個人年金保険など（一定の要件を満たすもの）</li>
+                                    </ul>
+                                    <h4>控除対象とならない主なもの</h4>
+                                    <ul>
+                                        <li>損害保険料（火災保険、自動車保険など）</li>
+                                        <li>団体信用生命保険料（住宅ローンに付随するもの）</li>
+                                        <li>他人が契約者となっている保険の保険料</li>
+                                    </ul>
+                                    <h4>注意点</h4>
+                                    <ul>
+                                        <li>配偶者や親族が契約者で、あなたが保険料を支払っている場合は控除対象外です</li>
+                                        <li>生命保険料を一括払いした場合、支払った年に全額を控除できるわけではありません</li>
+                                        <li>保険料控除証明書は再発行可能ですので、紛失した場合は保険会社に連絡してください</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="deduction-category">
+                        <h3>社会保険料控除</h3>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <button class="accordion-header">控除の概要と対象となる保険料</button>
+                                <div class="accordion-content">
+                                    <p>社会保険料控除は、納税者本人や生計を一にする配偶者やその他の親族の負担すべき社会保険料を支払った場合に、支払った金額の全額を所得から控除できる制度です。</p>
+                                    <h4>対象となる主な社会保険料</h4>
+                                    <ul>
+                                        <li>健康保険料（国民健康保険、健康保険組合等）</li>
+                                        <li>厚生年金保険料</li>
+                                        <li>国民年金保険料</li>
+                                        <li>雇用保険料</li>
+                                        <li>介護保険料</li>
+                                        <li>後期高齢者医療保険料</li>
+                                    </ul>
+                                    <p class="note">※国民年金の任意加入保険料や付加保険料も控除対象となります。</p>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1130.htm" target="_blank" class="tax-link">国税庁：社会保険料控除について</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">控除額の計算方法</button>
+                                <div class="accordion-content">
+                                    <h4>控除額の計算</h4>
+                                    <div class="calculation-box">
+                                        <p>社会保険料控除額 = その年中に支払った社会保険料の全額</p>
+                                    </div>
+                                    <p>社会保険料控除は、支払った金額の全額が控除されるため、上限額はありません。</p>
+                                    <h4>支払った社会保険料の確認方法</h4>
+                                    <ul>
+                                        <li>給与からの天引きの場合：源泉徴収票の「社会保険料等の金額」欄で確認</li>
+                                        <li>自分で納付した場合：納付書の控えや口座振替の記録で確認</li>
+                                        <li>国民年金保険料：日本年金機構から送付される「社会保険料（国民年金保険料）控除証明書」で確認</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">申告手続きと必要書類</button>
+                                <div class="accordion-content">
+                                    <h4>給与所得者の場合</h4>
+                                    <ul>
+                                        <li>給与から天引きされている社会保険料については、自動的に年末調整で控除されます</li>
+                                        <li>自分で納付した社会保険料がある場合は、「給与所得者の保険料控除申告書」に記入し、控除証明書を添付して勤務先に提出します</li>
+                                    </ul>
+                                    <h4>確定申告で控除を受ける場合</h4>
+                                    <ul>
+                                        <li>確定申告書に支払った社会保険料の金額を記入</li>
+                                        <li>国民年金保険料の場合は「社会保険料（国民年金保険料）控除証明書」を添付</li>
+                                        <li>その他の社会保険料は、納付を証明する書類（領収書等）の添付が必要な場合があります</li>
+                                    </ul>
+                                    <p class="note">※国民年金保険料の控除証明書は、毎年10月下旬から11月上旬に日本年金機構から送付されます。</p>
+                                    <p><a href="https://www.nenkin.go.jp/service/kounen/hokenryo/hotenryo/20141226.html" target="_blank" class="tax-link">日本年金機構：社会保険料（国民年金保険料）控除証明書</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">注意点とよくある質問</button>
+                                <div class="accordion-content">
+                                    <h4>控除を受ける際の注意点</h4>
+                                    <ul>
+                                        <li>実際に支払った年分の所得税から控除されます（前納分も支払った年に控除）</li>
+                                        <li>クレジットカードで支払った場合は、カード会社への支払日ではなく、納付した日が属する年の控除となります</li>
+                                    </ul>
+                                    <h4>よくある質問</h4>
+                                    <ul>
+                                        <li>Q：家族の国民年金保険料を支払った場合はどうなりますか？<br>
+                                            A：生計を一にする家族の分も、支払った本人が控除を受けられます。</li>
+                                        <li>Q：国民年金保険料を前納した場合はどうなりますか？<br>
+                                            A：実際に支払った年の控除となります。複数年分を前納した場合も同様です。</li>
+                                        <li>Q：控除証明書を紛失した場合はどうすればよいですか？<br>
+                                            A：控除証明書の再発行を依頼できます。国民年金保険料の場合は日本年金機構へ連絡してください。</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="deduction-category">
+                        <h3>ふるさと納税（寄附金控除）</h3>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <button class="accordion-header">控除の概要と基本的な仕組み</button>
+                                <div class="accordion-content">
+                                    <p>ふるさと納税は、自分の選んだ自治体に寄附を行うと、寄附金額から2,000円を差し引いた額が所得税・住民税から控除される制度です。</p>
+                                    <h4>控除額の計算方法</h4>
+                                    <div class="calculation-box">
+                                        <p>基本控除額：寄附金額 - 2,000円</p>
+                                        <p>所得税控除：基本控除額 × 所得税率</p>
+                                        <p>住民税控除：基本控除額 × （100% - 所得税率）</p>
+                                    </div>
+                                    <h4>控除上限額</h4>
+                                    <p>年間所得の20%が上限</p>
+                                    <p class="note">※高所得者の場合、住民税所得割額の20%という上限があり、実質的な寄附上限額が決まります。</p>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1150.htm" target="_blank" class="tax-link">国税庁：寄附金控除について</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">確定申告不要の「ワンストップ特例制度」</button>
+                                <div class="accordion-content">
+                                    <p>確定申告をせずにふるさと納税の控除を受けられる制度です。</p>
+                                    <h4>ワンストップ特例制度の条件</h4>
+                                    <ul>
+                                        <li>寄附先の自治体が5団体以内であること</li>
+                                        <li>確定申告をする必要がない給与所得者等であること</li>
+                                        <li>各自治体にワンストップ特例申請書を提出していること</li>
+                                    </ul>
+                                    <h4>申請に必要なもの</h4>
+                                    <ul>
+                                        <li>ワンストップ特例申請書（寄附先の自治体から送付される）</li>
+                                        <li>マイナンバーカードのコピー（または通知カードのコピーと本人確認書類のコピー）</li>
+                                        <li>本人確認書類（運転免許証等）のコピー</li>
+                                    </ul>
+                                    <p class="warning">※申請期限は寄附した翌年の1月10日までです。期限を過ぎると確定申告が必要になります。</p>
+                                    <p class="warning">※医療費控除など他の控除を受けるために確定申告をする場合は、ワンストップ特例の適用は受けられなくなり、ふるさと納税も確定申告に含める必要があります。</p>
+                                    <p><a href="https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/furusato/mechanism/mechanism01.html" target="_blank" class="tax-link">総務省：ワンストップ特例制度について</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">確定申告が必要な場合の手続き</button>
+                                <div class="accordion-content">
+                                    <h4>確定申告が必要なケース</h4>
+                                    <ul>
+                                        <li>6団体以上にふるさと納税を行った場合</li>
+                                        <li>確定申告の必要な方（事業所得者等）</li>
+                                        <li>医療費控除など他の控除も受ける場合</li>
+                                        <li>ワンストップ特例の申請期限を過ぎた場合</li>
+                                    </ul>
+                                    <h4>申告に必要な書類</h4>
+                                    <ul>
+                                        <li>確定申告書（第一表・第二表）</li>
+                                        <li>寄附金控除に関する明細書</li>
+                                        <li>寄附金受領証明書（原本）</li>
+                                    </ul>
+                                    <p class="note">※マイナポータル連携を利用すると、一部のふるさと納税情報が自動で取得できます。</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">年収別のふるさと納税目安額</button>
+                                <div class="accordion-content">
+                                    <p>年収2,000万円以上の方の目安となる控除上限額（独身の場合）</p>
+                                    <div class="calculation-box">
+                                        <p>年収2,000万円：約200万円</p>
+                                        <p>年収3,000万円：約300万円</p>
+                                        <p>年収5,000万円：約500万円</p>
+                                    </div>
+                                    <p class="warning">※あくまで目安であり、控除額は所得構成や各種控除の適用状況により変動します。</p>
+                                    <p>高所得者の場合、自己負担額（2,000円）に対して大きな控除が受けられるため、計画的な寄附が節税に効果的です。</p>
+                                    <p><a href="https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/furusato/topics/20170406.html" target="_blank" class="tax-link">総務省：ふるさと納税控除上限額の計算方法</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="deduction-category">
+                        <h3>地震保険料控除</h3>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <button class="accordion-header">控除の概要と対象となる保険料</button>
+                                <div class="accordion-content">
+                                    <p>地震保険料控除は、居住用家屋などの地震等による損害を補償する地震保険契約に係る保険料を支払った場合に受けられる控除です。</p>
+                                    <h4>対象となる保険の種類</h4>
+                                    <ul>
+                                        <li>地震保険契約に係る保険料（地震・噴火・津波による損害を補償）</li>
+                                        <li>旧長期損害保険契約に係る保険料（平成18年12月31日までに締結された満期返戻金あり等の条件を満たす契約）</li>
+                                    </ul>
+                                    <h4>控除の対象となる契約</h4>
+                                    <p>居住用家屋や生活用動産を保険の目的とし、契約者が本人または配偶者・親族であること</p>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1145.htm" target="_blank" class="tax-link">国税庁：地震保険料控除について</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">控除額の計算方法</button>
+                                <div class="accordion-content">
+                                    <h4>地震保険料の場合</h4>
+                                    <div class="calculation-box">
+                                        <p>年間の地震保険料が50,000円以下の場合：支払保険料の全額</p>
+                                        <p>年間の地震保険料が50,000円を超える場合：一律50,000円</p>
+                                    </div>
+                                    <h4>旧長期損害保険料の場合</h4>
+                                    <div class="calculation-box">
+                                        <p>年間の支払保険料が10,000円以下の場合：支払保険料の全額</p>
+                                        <p>年間の支払保険料が10,000円超20,000円以下の場合：支払保険料 × 1/2 + 5,000円</p>
+                                        <p>年間の支払保険料が20,000円を超える場合：一律15,000円</p>
+                                    </div>
+                                    <h4>両方の保険料を支払った場合</h4>
+                                    <p>地震保険料と旧長期損害保険料の両方を支払った場合は、いずれか一方の控除を選択するか、両方の控除額の合計額（最高50,000円）が適用されます。</p>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1146.htm" target="_blank" class="tax-link">国税庁：地震保険料控除額の計算方法</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">申告手続きと必要書類</button>
+                                <div class="accordion-content">
+                                    <h4>給与所得者の場合</h4>
+                                    <ul>
+                                        <li>年末調整で控除を受けるには、勤務先に「給与所得者の保険料控除申告書」と「地震保険料控除証明書」を提出</li>
+                                        <li>期限は各企業の年末調整の時期（通常10〜12月頃）</li>
+                                    </ul>
+                                    <h4>確定申告で控除を受ける場合</h4>
+                                    <ul>
+                                        <li>確定申告書に支払った地震保険料の金額を記入</li>
+                                        <li>地震保険料控除証明書（原本）を添付</li>
+                                    </ul>
+                                    <p class="note">※保険料控除証明書は通常、保険会社から10月〜11月頃に送付されます。</p>
+                                    <p class="note">※年末調整で控除済みの場合は、確定申告で改めて申告する必要はありません（他の控除を追加で受ける場合を除く）。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="deduction-category">
+                        <h3>小規模企業共済等掛金控除</h3>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <button class="accordion-header">控除の概要と対象となる掛金</button>
+                                <div class="accordion-content">
+                                    <p>小規模企業共済等掛金控除は、小規模企業共済や確定拠出年金などの掛金を支払った場合に受けられる所得控除です。</p>
+                                    <h4>対象となる掛金の種類</h4>
+                                    <ul>
+                                        <li>小規模企業共済制度の掛金</li>
+                                        <li>確定拠出年金（個人型）の掛金</li>
+                                        <li>国民年金基金の掛金</li>
+                                        <li>心身障害者扶養共済制度の掛金</li>
+                                    </ul>
+                                    <h4>控除額の計算</h4>
+                                    <div class="calculation-box">
+                                        <p>小規模企業共済等掛金控除額 = その年中に支払った掛金の全額</p>
+                                    </div>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1135.htm" target="_blank" class="tax-link">国税庁：小規模企業共済等掛金控除について</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">申告手続きと必要書類</button>
+                                <div class="accordion-content">
+                                    <h4>給与所得者の場合</h4>
+                                    <ul>
+                                        <li>年末調整で控除を受けるには、勤務先に「給与所得者の保険料控除申告書」と各掛金の「控除証明書」を提出</li>
+                                    </ul>
+                                    <h4>確定申告で控除を受ける場合</h4>
+                                    <ul>
+                                        <li>確定申告書に支払った掛金の金額を記入</li>
+                                        <li>控除証明書（原本）を添付</li>
+                                    </ul>
+                                    <p class="note">※控除証明書は各運営機関から送付されます。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="submission-method" class="step-content">
+                <h2>申告方法選択</h2>
+                <div class="submission-options">
+                    <div class="submission-category">
+                        <h3>電子申告（e-Tax）</h3>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <button class="accordion-header">事前準備</button>
+                                <div class="accordion-content">
+                                    <h4>必要な準備物</h4>
+                                    <ul>
+                                        <li>マイナンバーカード</li>
+                                        <li>ICカードリーダー（スマートフォンの場合不要）</li>
+                                        <li>e-Tax利用者識別番号</li>
+                                        <li>電子証明書（マイナンバーカードに内蔵）</li>
+                                    </ul>
+                                    <h4>マイナポータル連携の準備</h4>
+                                    <ol>
+                                        <li>マイナポータルへのログイン</li>
+                                        <li>e-Taxとの連携設定</li>
+                                        <li>情報連携の同意</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">e-Tax利用登録の手順</button>
+                                <div class="accordion-content">
+                                    <ol>
+                                        <li>e-Taxのウェブサイトにアクセス</li>
+                                        <li>「e-Tax利用開始届出」を選択</li>
+                                        <li>利用者識別番号の取得（初回のみ）</li>
+                                        <li>マイナンバーカードの読み取り</li>
+                                        <li>暗証番号（4桁）の入力</li>
+                                        <li>メールアドレスの登録（任意だが推奨）</li>
+                                    </ol>
+                                    <p class="note">※スマートフォンでの利用の場合は、マイナポータルアプリのインストールが必要です。</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">申告データの作成方法</button>
+                                <div class="accordion-content">
+                                    <h4>作成方法の選択</h4>
+                                    <ul>
+                                        <li>マイナポータル連携による自動入力
+                                            <ul>
+                                                <li>源泉徴収票データの自動取得</li>
+                                                <li>医療費データの自動取得</li>
+                                                <li>ふるさと納税のデータ連携</li>
+                                            </ul>
+                                        </li>
+                                        <li>確定申告書等作成コーナーでの作成
+                                            <ul>
+                                                <li>画面の案内に従って入力</li>
+                                                <li>前年データの引用が可能</li>
+                                                <li>計算機能による自動計算</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">添付書類のデータ化</button>
+                                <div class="accordion-content">
+                                    <h4>提出方法の選択</h4>
+                                    <ul>
+                                        <li>イメージデータによる提出
+                                            <ul>
+                                                <li>スキャナーでPDF化（推奨解像度200dpi）</li>
+                                                <li>スマートフォンでの撮影（PDF変換）</li>
+                                                <li>1ファイルあたり最大4MBまで</li>
+                                            </ul>
+                                        </li>
+                                        <li>データ保存制度の利用
+                                            <ul>
+                                                <li>医療費の領収書は5年間保管</li>
+                                                <li>確定申告期限から5年間の保存が必要</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">送信時の注意点</button>
+                                <div class="accordion-content">
+                                    <h4>送信前の確認事項</h4>
+                                    <ul>
+                                        <li>入力内容の確認
+                                            <ul>
+                                                <li>金額の誤入力チェック</li>
+                                                <li>控除項目の漏れチェック</li>
+                                                <li>添付書類の漏れチェック</li>
+                                            </ul>
+                                        </li>
+                                        <li>送信時の注意
+                                            <ul>
+                                                <li>送信後の即時エラーチェック</li>
+                                                <li>受付結果の確認</li>
+                                                <li>メッセージボックスの確認</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <p class="warning">※送信後は訂正が必要な場合、訂正申告が必要となります。</p>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/shinkoku/tokushu/qa_roomten.htm" target="_blank" class="tax-link">国税庁：e-Tax申告によくあるご質問</a></p>
+                                    <p><a href="https://www.e-tax.nta.go.jp/e-taxsoftweb/e-taxsoftweb.htm" target="_blank" class="tax-link">国税庁：確定申告書等作成コーナー</a></p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button class="accordion-header">e-Taxのメリット</button>
+                                <div class="accordion-content">
+                                    <ul>
+                                        <li>自宅から24時間いつでも申告可能</li>
+                                        <li>控除証明書などの添付書類のイメージデータ送信が可能</li>
+                                        <li>マイナポータル連携で各種データを自動取得可能</li>
+                                        <li>還付金の受取りが書面提出より早い（最短2週間程度）</li>
+                                        <li>第三者認証（マイナンバーカード）による高いセキュリティ</li>
+                                    </ul>
+                                    <p class="note">※高所得者の場合、複数の控除を組み合わせることが多いため、e-Taxのデータ連携機能が特に有用です。</p>
+                                    <p><a href="https://www.nta.go.jp/taxes/nozei/nofu/e-tax_payment.htm" target="_blank" class="tax-link">国税庁：e-Taxでの納税手続について</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="submission-category">
+                        <h3>郵送申告</h3>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <button class="accordion-header">必要書類と手続き</button>
+                                <div class="accordion-content">
+                                    <h4>必要書類</h4>
+                                    <ul>
+                                        <li>確定申告書（A様式またはB様式）</li>
+                                        <li>マイナンバー記載書類</li>
+                                        <li>収支内訳書</li>
+                                        <li>源泉徴収票（原本）</li>
+                                        <li>各種控除証明書（原本）</li>
+                                        <li>添付書類（コピー可）</li>
+                                    </ul>
+                                    <h4>手続きの流れ</h4>
+                                    <ol>
+                                        <li>申告書の記入</li>
+                                        <li>必要書類の準備と添付</li>
+                                        <li>控えのコピー作成</li>
+                                        <li>税務署への郵送（簡易書留推奨）</li>
+                                    </ol>
+                                    <p class="note">※郵送の場合でも、「確定申告書等作成コーナー」で作成・印刷した書類を使用できます。</p>
+                                    <p><a href="https://www.nta.go.jp/taxes/shiraberu/shinkoku/kakutei/fukumiawase.htm" target="_blank" class="tax-link">国税庁：申告書の書き方・記載例</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="documents" class="step-content">
+                <h2>必要書類一覧</h2>
+                <div class="document-list">
+                    <div class="document-category">
+                        <h3>共通して必要な書類</h3>
+                        <ul>
+                            <li>マイナンバーカードまたは通知カードのコピー</li>
+                            <li>本人確認書類（運転免許証等）のコピー</li>
+                            <li>給与所得の源泉徴収票</li>
+                            <li>還付先の口座情報がわかるもの</li>
+                            <li>印鑑（書面提出の場合）</li>
+                        </ul>
+                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/shinkoku/kakutei.htm" target="_blank" class="tax-link">国税庁：確定申告に必要な書類</a></p>
+                    </div>
+
+                    <div class="document-category">
+                        <h3>医療費控除の場合</h3>
+                        <ul>
+                            <li>【必須】医療費控除の明細書</li>
+                            <li>【保管義務】医療費の領収書（提出不要、自宅で5年間保管）</li>
+                            <li>【該当する場合】医療保険からの補填額の明細（保険金や高額療養費など）</li>
+                            <li>【セルフメディケーション税制の場合】予防接種や健康診断等の領収書</li>
+                        </ul>
+                        <p class="note">※平成29年分以降の確定申告では、領収書の提出は不要で、代わりに「医療費控除の明細書」の添付が必要です。</p>
+                        <p class="note">※生計同一の家族の医療費の場合、実務上は家族関係を証明する書類は通常求められませんが、質問された場合に説明できるようにしておくとよいでしょう。</p>
+                    </div>
+
+                    <div class="document-category">
+                        <h3>生命保険料控除の場合</h3>
+                        <ul>
+                            <li>【必須】生命保険料控除証明書（原本）</li>
+                            <li>【該当する場合】個人年金保険料控除証明書（原本）</li>
+                            <li>【該当する場合】介護医療保険料控除証明書（原本）</li>
+                        </ul>
+                        <p class="note">※年末調整で控除済みの場合は確定申告不要です（他の控除を追加で受ける場合を除く）。</p>
+                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1142.htm" target="_blank" class="tax-link">国税庁：生命保険料控除の手続き</a></p>
+                    </div>
+
+                    <div class="document-category">
+                        <h3>地震保険料控除の場合</h3>
+                        <ul>
+                            <li>【必須】地震保険料控除証明書（原本）</li>
+                            <li>【該当する場合】旧長期損害保険料控除証明書（原本）</li>
+                        </ul>
+                        <p class="note">※年末調整で控除済みの場合は確定申告不要です（他の控除を追加で受ける場合を除く）。</p>
+                        <p class="note">※給与所得者は、年末調整で申告するのが一般的です。</p>
+                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1145.htm" target="_blank" class="tax-link">国税庁：地震保険料控除について</a></p>
+                    </div>
+
+                    <div class="document-category">
+                        <h3>小規模企業共済等掛金控除の場合</h3>
+                        <ul>
+                            <li>【必須】小規模企業共済等掛金控除証明書（原本）</li>
+                            <li>【該当する場合】国民年金基金の控除証明書（原本）</li>
+                            <li>【該当する場合】iDeCo（個人型確定拠出年金）の控除証明書（原本）</li>
+                        </ul>
+                        <p class="note">※年末調整で控除済みの場合は確定申告不要です（他の控除を追加で受ける場合を除く）。</p>
+                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1135.htm" target="_blank" class="tax-link">国税庁：小規模企業共済等掛金控除について</a></p>
+                    </div>
+
+                    <div class="document-category">
+                        <h3>住宅ローン控除の場合</h3>
+                        <ul>
+                            <li>【必須】住宅借入金等特別控除額の計算明細書</li>
+                            <li>【必須】住宅取得資金に係る借入金の年末残高等証明書（金融機関発行）</li>
+                            <li>【必須】住民票の写し（入居後のもの、世帯全員分、マイナンバーの記載がないもの）</li>
+                            <li>【必須】登記事項証明書（法務局発行）</li>
+                            <li>【必須】家屋の取得年月日、床面積、取得価額が分かる契約書等の写し</li>
+                            <li>【条件付き】特例の適用を受ける場合の証明書（認定住宅等の場合のみ）</li>
+                        </ul>
+                        <p class="note">※このアプリは年末調整はせずにすべてを確定申告する人向けです。2年目以降も確定申告が必要な場合は、「住宅取得資金に係る借入金の年末残高等証明書」のみが必要です。</p>
+                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1217.htm" target="_blank" class="tax-link">国税庁：住宅ローン控除に必要な書類</a></p>
+                    </div>
+
+                    <div class="document-category">
+                        <h3>ふるさと納税の場合</h3>
+                        <ul>
+                            <li>【必須】寄附金受領証明書（原本）</li>
+                            <li>【必須】寄附金税額控除に関する証明書（原本）</li>
+                            <li>【注意】寄附先の自治体によっては、受領証明書と控除証明書が一体になっている場合があります</li>
+                        </ul>
+                        <p class="note">※ワンストップ特例制度を利用している場合は申告不要です。</p>
+                        <p class="note">※確定申告が必要な他の控除がある場合は、ワンストップ特例の適用はなくなり、ふるさと納税も申告する必要があります。</p>
+                        <p><a href="https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/furusato/topics/20200630_00.html" target="_blank" class="tax-link">総務省：ふるさと納税の申告手続き</a></p>
+                    </div>
+
+                    <div class="document-category">
+                        <h3>社会保険料控除の場合</h3>
+                        <ul>
+                            <li>【該当者のみ】社会保険料（国民年金保険料）控除証明書（日本年金機構から送付）</li>
+                            <li>【該当者のみ】国民健康保険料の領収書または納付証明書</li>
+                            <li>【該当者のみ】その他の社会保険料の控除証明書または領収書</li>
+                        </ul>
+                        <p class="note">※給与から天引きされている社会保険料は、源泉徴収票で確認できるため、別途証明書は不要です。</p>
+                        <p class="note">※家族の社会保険料を支払った場合、生計同一の証明は通常不要ですが、質問された場合に説明できるようにしておくとよいでしょう。</p>
+                        <p><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1130.htm" target="_blank" class="tax-link">国税庁：社会保険料控除について</a></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>※このアプリは確定申告の準備をサポートするためのものです。実際の申告は国税庁のe-Taxをご利用ください。</p>
+            <a href="https://www.e-tax.nta.go.jp/" target="_blank" class="e-tax-link">e-Taxへ移動</a>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
