@@ -427,10 +427,11 @@ footer {
 }
 
 .prep-category h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.2em;
-    color: #333;
+    background-color: var(--secondary-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    color: #ffffff;
 }
 
 .prep-category ul {
